@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
-import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdtempSync, mkdirSync, rmSync, writeFileSync, realpathSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { tmpdir } from 'node:os'
 import type { ViteDevServer } from 'vite'
@@ -16,7 +16,7 @@ describe('serve dev server', () => {
   const originalCwd = process.cwd()
 
   beforeEach(() => {
-    tempDir = mkdtempSync(join(tmpdir(), 'maizzle-serve-'))
+    tempDir = realpathSync(mkdtempSync(join(tmpdir(), 'maizzle-serve-')))
     process.chdir(tempDir)
   })
 

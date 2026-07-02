@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
-import { rmSync, symlinkSync } from 'node:fs'
+import { rmSync, symlinkSync, realpathSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { defineComponent, h } from 'vue'
 import { render } from '../../render/index.ts'

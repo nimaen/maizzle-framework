@@ -1,5 +1,5 @@
 {
-  "name": "@maizzle/framework",
+  "name": "cyme-maizzle-framework",
   "version": "6.0.2",
   "description": "Maizzle is a framework that helps you quickly build HTML emails with Tailwind CSS.",
   "license": "MIT",
@@ -7,27 +7,33 @@
   "publishConfig": {
     "access": "public"
   },
+  "main": "./dist-node/index.js",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
+      "require": "./dist-node/index.cjs",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
   },
+  "types": "./dist/index.d.ts",
   "bin": {
-    "maizzle": "./bin/maizzle.mjs"
+    "maizzle": "bin/maizzle.mjs"
   },
   "files": [
     "dist",
+    "dist-node",
     "bin"
   ],
   "scripts": {
-    "build": "tsdown",
+    "build:esm": "tsdown --config ./tsdown.config.ts",
+    "build:node": "tsdown --config ./tsdown.config.node.ts",
+    "build": "npm run build:esm && npm run build:node",
     "dev": "vitest",
     "lint": "oxlint",
     "test": "vitest run --coverage",
     "pretest": "npm run lint",
     "prepublishOnly": "npm run build",
-    "release": "npm run build && npx np"
+    "release": "npm run build && npx np --no-2fa"
   },
   "bundleDependencies": [
     "maizzle"
@@ -102,7 +108,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/maizzle/framework.git"
+    "url": "git+https://github.com/maizzle/framework.git"
   },
   "bugs": "https://github.com/maizzle/framework/issues",
   "homepage": "https://maizzle.com",
